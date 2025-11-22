@@ -183,10 +183,15 @@ export default function UserList() {
     pushLog(`Viewing user details: ${user.name}`);
   };
 
-  const companyList = useMemo(() => {
-    if (!users) return [];
-    return Array.from(new Set(users.map((u: any) => u.company.name)));
-  }, [users]);
+  const companyList: string[] = useMemo(() => {
+  if (!users) return [];
+  return Array.from(
+    new Set(
+      users.map((u: any) => String(u.company?.name ?? "Unknown"))
+    )
+  );
+}, [users]);
+
 
   const filteredUsers = useMemo(() => {
     if (!users) return [];
